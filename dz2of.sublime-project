@@ -1,0 +1,33 @@
+
+{
+	"folders" : 
+	[
+		{
+			"path" : ".",
+			"name" : "source",
+			"folder_exclude_patterns" :
+			[
+				"*.sublime-workspace",
+				"*.jpg"
+			]
+		}
+	],
+
+	"build_systems" :
+	[
+		{
+			"name" : "test",
+		    "cmd": ["rake", "test"]
+		}
+	],  
+
+	"settings":
+	{
+		"highlight_line": true,
+		"color_scheme": "Packages/Color Scheme - Default/Cobalt.tmTheme",
+		"font": "consolas",
+		"scroll_speed": 0,
+		"tree_animation_enabled": false
+	}
+
+}

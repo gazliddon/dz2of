@@ -1,16 +1,16 @@
 dz2of:
 	Todo list for the dropzone to omnifocus script. Having a quick try of Taskpaper to see if it suits me :)
 	
-	- Test
+	- Test @done(2012-12-21)
 		- Get run script working and reporting back errors @done(2012-12-21)
 		- Exit and report errors @done(2012-12-21)
-		- Get test running from within sublime
+		- Get test running from within sublime @done(2012-12-21)
 		- Actually test in DropZone @done(2012-12-21)
 
-	- Add to github
-		- Create depositry
-		- Upload project to it
-		- Remove dropbox version
+	- Add to github @done(2012-12-21)
+		- Create depositry @done(2012-12-21)
+		- Upload project to it @done(2012-12-21)
+		- Remove dropbox version @done(2012-12-21)
 
 	- Send Stuff To Omnifocus Inbox
 		- First send text only
@@ -26,6 +26,7 @@ dz2of:
 	- Tidy Up
 		- Is there anything I can do with click? @question
 		- Fill in header for plugin properly
+		- Get icon stored on net permanently somewhere and put URI in header
 		- Do a dialog that allows you set the default project you want stuff dropped to
 		- Need to error if OF isn't installed, how do I check? @question
 

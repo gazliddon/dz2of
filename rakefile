@@ -74,6 +74,7 @@ end
 
 
 task :test  do
+	puts "\n\n\n\n\n*** TESTING ***\n"
 
 	# ruby syntax check
 	run_script_error "ruby -c \"#{script_src}\""
@@ -90,16 +91,16 @@ task :test  do
 	# Run the tests
 	puts "Clicked Test"
 	run_script "./runner.rb \"#{script_src}\" clicked" do |output, err_no|
-		puts output
-		assert {err_no == 0}
+		puts output unless err_no == 0
+		assert { err_no == 0 }
 	end
 
 	puts ""
 
 	puts "Dragged Test"
 	run_script "./runner.rb \"#{script_src}\" dragged #{full_test_file}"  do |output, err_no|
-		puts output
-		assert {err_no == 0}
+		puts output unless err_no == 0
+		assert { err_no == 0 }
 	end
 
 end
