@@ -4,7 +4,7 @@
 # Name: Omnifocus Inbox
 # Description: Copies "stuff" to your Omnifocus inbox
 # Handles: NSFilenamesPboardType
-# Events: Dragged
+# Events: Clicked, Dragged
 # Creator: Gaz Liddon
 # URL: http://www.facebook.com/gazliddon
 # IconURL: http://aptonic.com/destinations/icons/test.png
@@ -16,15 +16,11 @@ def dragged
 	$dz.begin("Doing something with #{file_path}...")
  
 	$dz.percent(20)
-	sleep(1)
 	$dz.percent(50)
-	sleep(1)
 	$dz.percent(100)
-	sleep(1)
  
 	$dz.finish("Finished Task")
 	$dz.url(false)
-
 end
  
 def clicked
@@ -33,5 +29,4 @@ def clicked
 	$dz.url(false)
 
 end
-
 
