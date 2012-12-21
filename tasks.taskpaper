@@ -2,10 +2,10 @@ dz2of:
 	Todo list for the dropzone to omnifocus script. Having a quick try of Taskpaper to see if it suits me :)
 	
 	- Test
-		- Get run script working and reporting back errors
-		- Exit and report errors
+		- Get run script working and reporting back errors @done(2012-12-21)
+		- Exit and report errors @done(2012-12-21)
 		- Get test running from within sublime
-		- Test actually in DropZone
+		- Actually test in DropZone @done(2012-12-21)
 
 	- Add to github
 		- Create depositry

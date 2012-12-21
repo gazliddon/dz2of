@@ -45,43 +45,58 @@ task :dirs => all_dst_dirs.each {|d| directory(d); Rake::Task[d]} do
 end
 
 def run_script text
+	out = ""
 	ret = IO.popen('sh', 'r+') do |f|
 		f.puts(text)
 		f.close_write
-		f.read
+		out = f.read
 	end
 
 	reg = /^pid (\d+) exit (\d+)$/.match($?.to_s)
 	assert {reg.size == 3}
 
-	yield $?, reg[2].to_i if block_given?
+	yield out, reg[2].to_i if block_given?
 	$?
 end
 
+def run_script_error text
+	run_script text do |output, error|
+		if error != 0
+			puts "!ERROR"
+			puts output
+			false
+		end
+	end
+	true
+end
 
 task :test  do
 
 	# ruby syntax check
-	ret = run_script "ruby -c \"#{script_src}\""
-	assert { ret != "Syntax OK"}
+	run_script_error "ruby -c \"#{script_src}\""
 
 	# cp file to destination dir
-	run_script "cp \"#{script_src}\" \"#{script_dest}\""
+	run_script_error"cp \"#{script_src}\" \"#{script_dest}\""
 
 	test_file_full_path = File.expand_path TEST_FILE
 
+	# change directory to test dir
+	start_dir = Dir.pwd
+	Dir.chdir script_test_dir
 
-	if true then
-		# change directory to test dir
-		start_dir = Dir.pwd
-		Dir.chdir script_test_dir
+	# Run the tests
+	puts "Clicked Test"
+	run_script "./runner.rb \"#{script_src}\" clicked" do |output, err_no|
+		puts output
+		assert {err_no == 0}
+	end
 
-		run_script "./runner.rb \"#{script_src}\" clicked" do |output, ret_code|
-		end
-		
-		run_script "./runner.rb \"#{script_src}\" dragged #{full_test_file}" do |output, ret_code|
-		end
+	puts ""
 
+	puts "Dragged Test"
+	run_script "./runner.rb \"#{script_src}\" dragged #{full_test_file}"  do |output, err_no|
+		puts output
+		assert {err_no == 0}
 	end
 
 end
