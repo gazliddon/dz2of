@@ -72,6 +72,16 @@ task :dirs => all_dst_dirs.each {|d| directory(d); Rake::Task[d]} do
 	puts "Made directories"
 end
 
+def run_script_error_reporting text
+
+	run_script "./runner.rb \"#{script_src}\" dragged #{full_test_file}"  do |output, err_no|
+		if err_no != 0
+			puts output
+			yield output, err_no if block_given?
+			assert { err_no == 0 }
+		end
+	end
+end
 
 task :test  do
 	puts "\n\n\n\n\n*** TESTING ***\n"
@@ -89,19 +99,17 @@ task :test  do
 	Dir.chdir script_test_dir
 
 	# Run the tests
-	puts "Clicked Test"
-	run_script "./runner.rb \"#{script_src}\" clicked" do |output, err_no|
-		puts output unless err_no == 0
-		assert { err_no == 0 }
-	end
+	puts "Starting click test"
+	run_script_error "./runner.rb \"#{script_src}\" clicked"
+	puts "succeeded"
 
 	puts ""
 
-	puts "Dragged Test"
-	run_script "./runner.rb \"#{script_src}\" dragged #{full_test_file}"  do |output, err_no|
-		puts output unless err_no == 0
-		assert { err_no == 0 }
-	end
+	puts "Starting drag test with #{full_test_file}"
+	run_script_error "./runner.rb \"#{script_src}\" dragged #{full_test_file}"
+	puts "succeeded"
+
+	puts
 
 end
 
