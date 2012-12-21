@@ -3,47 +3,22 @@ require "pp"
 
 # -----------------------------------------------------------------------------
 # Support functions
-def get_dirs list
 
+# Get a list of uniq directories from the list of files
+def get_dirs list
 	ret = []
 	list.each {|file| ret << File.dirname(File.expand_path(file))} 
 	ret.uniq
 end
 
+# Assert if function is false
 def assert
 	if not yield
 		exit(10)
 	end
 end
 
-
-
-# -----------------------------------------------------------------------------
-# Rakefile to make game
-
-SCRIPT_NAME = "Omnifocus Inbox"
-TEST_FILE = "test.jpg"
-
-
-# -----------------------------------------------------------------------------
-SCRIPT_DIR = "~/Library/Application Support/Dropzone/Destination Scripts"
-
-full_script_dir = File.expand_path SCRIPT_DIR
-script_test_dir = "#{full_script_dir}/lib"
-full_test_file = File.expand_path TEST_FILE
-
-script_dest = "#{full_script_dir}/#{SCRIPT_NAME}.dropzone"
-script_src = "#{SCRIPT_NAME}.dropzone"
-dest_files = [script_dest]
-all_dst_dirs = get_dirs dest_files
-
-# -----------------------------------------------------------------------------
-task :default => [:dirs]
-
-task :dirs => all_dst_dirs.each {|d| directory(d); Rake::Task[d]} do
-	puts "Made directories"
-end
-
+# Run a script and yield to any given block with the output
 def run_script text
 	out = ""
 	ret = IO.popen('sh', 'r+') do |f|
@@ -69,6 +44,34 @@ def run_script_error text
 	end
 	true
 end
+
+
+
+# -----------------------------------------------------------------------------
+# Rakefile to make game
+SCRIPT_NAME = "Omnifocus Inbox"
+TEST_FILE = "test.jpg"
+
+
+# -----------------------------------------------------------------------------
+SCRIPT_DIR = "~/Library/Application Support/Dropzone/Destination Scripts"
+
+full_script_dir = File.expand_path SCRIPT_DIR
+script_test_dir = "#{full_script_dir}/lib"
+full_test_file = File.expand_path TEST_FILE
+
+script_dest = "#{full_script_dir}/#{SCRIPT_NAME}.dropzone"
+script_src = "#{SCRIPT_NAME}.dropzone"
+dest_files = [script_dest]
+all_dst_dirs = get_dirs dest_files
+
+# -----------------------------------------------------------------------------
+task :default => [:dirs]
+
+task :dirs => all_dst_dirs.each {|d| directory(d); Rake::Task[d]} do
+	puts "Made directories"
+end
+
 
 task :test  do
 
