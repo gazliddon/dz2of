@@ -1,12 +1,12 @@
 #!/usr/bin/ruby
  
 # Dropzone Destination Info
-# Name: Test Destination
-# Description: Provides the ability to do some cool thing.
+# Name: Omnifocus Inbox
+# Description: Copies "stuff" to your Omnifocus inbox
 # Handles: NSFilenamesPboardType
-# Events: Clicked, Dragged
-# Creator: Aptonic Software
-# URL: http://aptonic.com
+# Events: Dragged
+# Creator: Gaz Liddon
+# URL: http://www.facebook.com/gazliddon
 # IconURL: http://aptonic.com/destinations/icons/test.png
  
 def dragged
