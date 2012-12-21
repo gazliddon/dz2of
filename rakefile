@@ -1,14 +1,24 @@
 include Rake::DSL
 
-require "pp"
-
-# Get a list of unique directories from a list of files
+# -----------------------------------------------------------------------------
+# Support functions
 def get_dirs list
 
 	ret = []
 	list.each {|file| ret << File.dirname(File.expand_path(file))} 
 	ret.uniq
 end
+
+def error
+	if not yield
+		exit(10)
+	end
+end
+
+def run_script text
+	puts text
+end
+
 
 # -----------------------------------------------------------------------------
 # Rakefile to make game
@@ -35,18 +45,9 @@ task :dirs => all_dst_dirs.each {|d| directory(d); Rake::Task[d]} do
 	puts "Made directories"
 end
 
-def error
-	if not yield
-		exit(10)
-	end
-end
-
-def run_script text
-	puts text
-end
-
 
 task :test  do
+
 	# ruby syntax check
 	puts "Checking syntax of #{script_src}"
 	ret = `ruby -c \"#{script_src}\"`
@@ -71,6 +72,7 @@ task :test  do
 	
 	# report back
 	Dir.chdir start_dir
+	
 end
 
 
