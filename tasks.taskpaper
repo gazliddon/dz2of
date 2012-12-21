@@ -1,0 +1,44 @@
+dz2of:
+	Todo list for the dropzone to omnifocus script. Having a quick try of Taskpaper to see if it suits me :)
+	
+	- Test
+		- Get run script working and reporting back errors
+		- Exit and report errors
+		- Get test running from within sublime
+		- Test actually in DropZone
+
+	- Add to github
+		- Create depositry
+		- Upload project to it
+		- Remove dropbox version
+
+	- Send Stuff To Omnifocus Inbox
+		- First send text only
+		- Can I can differentiate between text that's come from a filename or from a file link?  @question
+
+	- Remove dependancy on Omnifocus Gem
+		- Write Applescript to insert stuff into dropbox
+		- How do I include this for dropbox? @question 
+			- Would it be text in .dropbox file and then copied into AppleScripts dir?
+			- Not sure at all how multiple files are packaged for inclusion in dropbox
+			- Have a look at the 3rd party plugins for guidance
+
+	- Tidy Up
+		- Is there anything I can do with click? @question
+		- Fill in header for plugin properly
+		- Do a dialog that allows you set the default project you want stuff dropped to
+		- Need to error if OF isn't installed, how do I check? @question
+
+	- Would Be Nice
+		- Make my own taskpaper theme
+		- Can I include it in the directory?
+		- Or does it need to be available globally
+
+Notes
+-----
+This is good for clicked, can just open up Omnifocus
+
+def clicked
+	# open the Disk Utility app in the Utilities folder
+	`osascript -e 'tell application "Disk Utility" to activate'`
+end
