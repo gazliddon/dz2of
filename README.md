@@ -1,6 +1,12 @@
-# DzToOf
-A plugin for DropZone that will let you create items in Omnifocus if you have the application installed.
+# DzToOf V 0.01
+Dz2Of is a plug-in for [Dropzone](http://aptonic.com/features.php) that will allow you to create tasks in [Omnifocus](http://www.omnigroup.com/products/omnifocus/).
 
-# Links
-* Dropzone - http://aptonic.com/features.php
-* Omnifocus - http://www.omnigroup.com/products/omnifocus/
+# Information and Issues
+* Version 0.1
+* Doesn't detect if you actually have OF installed or not
+
+# Planned
+* Options pane
+ * Change default project items are sent to
+ * Option to bring up quick entry box rather than directly add task
+
