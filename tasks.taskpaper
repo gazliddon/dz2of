@@ -3,7 +3,7 @@ dz2of:
 	
 	- Complete to v 0.1
 		- If text is multi line AND first line is not blank then set title to first line and notes to entire text
-		- Get icon stored on net permanently somewhere and put URI in header (my dropbox public)
+		- Get icon stored on net permanently somewhere and put URI in header (my dropbox public) @done(2012-12-22)
 		- Need to error if OF isn't installed, how do I check? @question
 		- Submit version 0.1 into github, how do I do this @question
 

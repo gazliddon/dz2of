@@ -7,7 +7,7 @@
 # Events: Clicked, Dragged
 # Creator: Gaz Liddon
 # URL: http://www.facebook.com/gazliddon
-# IconURL: http://aptonic.com/destinations/icons/test.png
+# IconURL: https://dl.dropbox.com/u/3215822/omnifocus-icon.png
  
  #-----------------------------------------------------------------------------
  # Support functions
@@ -36,9 +36,10 @@ def run_apple_script text
 
 	# Execute the script
 	args = "osascript" + text.split("\n").map{|l| " -e \"#{l}\""}.join
-	run_script args do |proc_ret, proc_out|
+	out = run_script args do |proc_ret, proc_out|
 		yield proc_ret, proc_out if block_given?
 	end
+	out
 end
 
 # Add a task to the OF inbox
@@ -54,30 +55,62 @@ tell application "OmniFocus"
 end tell
   eos
 
-  run_apple_script script
+  run_apple_script(script)
 end
 
+# Find out if an app is installed or not
+def is_insalled app_id
+script = <<-eos
+try
+  tell application "Finder"
+    return name of application file id "#{app_id}"
+  end tell
+on error err_msg number err_num
+  return null
+end try
+	eos
+
+	ret = run_apple_script(script).gsub(/\s+$/,"")
+	ret != "null"
+end
+
+def if_omnifocus_is_installed
+	if is_insalled "com.omnigroup.OmniFocus"
+		yield if block_given?
+	else
+		$dz.error("Ruh Roh", "You do not have OmniFocus installed on this machine.")
+		$dz.finish("All done")
+		$dz.url(false)
+	end
+
+end
 
 #-----------------------------------------------------------------------------
 # Plugin
  
 def clicked
 
-	unless ENV["GAZ_TESTING"]
-		run_apple_script "tell application \"Omnifocus\" to activate"
-	else
-		puts "*** Not running clicked *** "
+	if_omnifocus_is_installed do
+		$dz.determinate(true)
+		unless ENV["GAZ_TESTING"]
+			run_apple_script "tell application \"Omnifocus\" to activate"
+		else
+			puts "*** Not running clicked *** "
+		end
+		$dz.finish("All done")
+		$dz.url(false)
 	end
 
-	$dz.finish("Switched to Omnifocus")
-	$dz.url(false)
 end
 
 def dragged
-	$dz.determinate(true)
-	add_task $items[0]
-	$dz.finish("Added task to your Omnifocus Inbox")
-	$dz.url(false)
+	if_omnifocus_is_installed do
+		$dz.determinate(true)
+		add_task $items[0]
+		$dz.finish("Added Task")
+		$dz.url(false)
+	end
+
 end
 
 #-----------------------------------------------------------------------------
