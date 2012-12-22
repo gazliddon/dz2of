@@ -37,7 +37,7 @@ end
 
 # -----------------------------------------------------------------------------
 # Rakefile to make game
-SCRIPT_NAME = "Omnifocus Inbox"
+SCRIPT_NAME = "Send To Omnifocus Inbox"
 TEST_FILE = "test.jpg"
 
 # -----------------------------------------------------------------------------

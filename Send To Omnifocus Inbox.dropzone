@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
  
 # Dropzone Destination Info
-# Name: Omnifocus Inbox
+# Name: Send To Omnifocus Inbox
 # Description: Copies "stuff" to your Omnifocus inbox
 # Handles: NSFilenamesPboardType, NSStringPboardType
 # Events: Clicked, Dragged
