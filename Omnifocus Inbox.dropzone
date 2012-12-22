@@ -3,30 +3,82 @@
 # Dropzone Destination Info
 # Name: Omnifocus Inbox
 # Description: Copies "stuff" to your Omnifocus inbox
-# Handles: NSFilenamesPboardType
+# Handles: NSFilenamesPboardType, NSStringPboardType
 # Events: Clicked, Dragged
 # Creator: Gaz Liddon
 # URL: http://www.facebook.com/gazliddon
 # IconURL: http://aptonic.com/destinations/icons/test.png
  
-def dragged
+ #-----------------------------------------------------------------------------
+ # Support functions
 
-	$dz.determinate(true)
-	file_path = $items[0]
-	$dz.begin("Doing something with #{file_path}...")
- 
-	$dz.percent(20)
-	$dz.percent(50)
-	$dz.percent(100)
- 
-	$dz.finish("Finished Task")
-	$dz.url(false)
+ # Run a script and yield with procces return and process output
+def run_script text
+	out = ""
+	ret = IO.popen('sh', 'r+') do |f|
+		f.puts(text)
+		f.close_write
+		out = f.read
+		yield $?, out if block_given?
+	end
+	out
 end
+
+# Run an apple script
+def run_apple_script text
+	# Cleanup the script text
+	[
+		[/\\/,"\\"],
+		[/\n+\s*/, "\n"],
+		[/\n+/,"\n"],
+		[/\"/,"\\\""]
+	].each {|src| text.gsub!(src[0],src[1])}
+
+	# Execute the script
+	args = "osascript" + text.split("\n").map{|l| " -e \"#{l}\""}.join
+	run_script args do |proc_ret, proc_out|
+		yield proc_ret, proc_out if block_given?
+	end
+end
+
+# Add a task to the OF inbox
+def add_task text
+script = <<-eos
+set OFTask to \"#{text}\"
+
+tell application "OmniFocus"
+	set theDoc to first document
+	tell theDoc
+		make new inbox task with properties {name:OFTask}
+	end tell
+end tell
+  eos
+
+  run_apple_script script
+end
+
+
+#-----------------------------------------------------------------------------
+# Plugin
  
 def clicked
 
-	$dz.finish("You clicked me!")
-	$dz.url(false)
+	unless ENV["GAZ_TESTING"]
+		run_apple_script "tell application \"Omnifocus\" to activate"
+	else
+		puts "*** Not running clicked *** "
+	end
 
+	$dz.finish("Switched to Omnifocus")
+	$dz.url(false)
 end
 
+def dragged
+	$dz.determinate(true)
+	add_task $items[0]
+	$dz.finish("Added task to your Omnifocus Inbox")
+	$dz.url(false)
+end
+
+#-----------------------------------------------------------------------------
+# ends

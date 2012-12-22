@@ -34,16 +34,6 @@ def run_script text
 	$?
 end
 
-def run_script_error text
-	run_script text do |output, error|
-		if error != 0
-			puts "!ERROR"
-			puts output
-			false
-		end
-	end
-	true
-end
 
 
 
@@ -73,10 +63,10 @@ task :dirs => all_dst_dirs.each {|d| directory(d); Rake::Task[d]} do
 end
 
 def run_script_error_reporting text
+	run_script text  do |output, err_no|
+		puts output
 
-	run_script "./runner.rb \"#{script_src}\" dragged #{full_test_file}"  do |output, err_no|
 		if err_no != 0
-			puts output
 			yield output, err_no if block_given?
 			assert { err_no == 0 }
 		end
@@ -87,10 +77,10 @@ task :test  do
 	puts "\n\n\n\n\n*** TESTING ***\n"
 
 	# ruby syntax check
-	run_script_error "ruby -c \"#{script_src}\""
+	run_script_error_reporting "ruby -c \"#{script_src}\""
 
 	# cp file to destination dir
-	run_script_error"cp \"#{script_src}\" \"#{script_dest}\""
+	run_script_error_reporting "cp \"#{script_src}\" \"#{script_dest}\""
 
 	test_file_full_path = File.expand_path TEST_FILE
 
@@ -100,13 +90,13 @@ task :test  do
 
 	# Run the tests
 	puts "Starting click test"
-	run_script_error "./runner.rb \"#{script_src}\" clicked"
+	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_src}\" clicked"
 	puts "succeeded"
 
 	puts ""
 
 	puts "Starting drag test with #{full_test_file}"
-	run_script_error "./runner.rb \"#{script_src}\" dragged #{full_test_file}"
+	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_src}\" dragged #{full_test_file}"
 	puts "succeeded"
 
 	puts

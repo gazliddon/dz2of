@@ -1,8 +1,0 @@
-set OFTask to the clipboard
-
-tell application "OmniFocus"
-	set theDoc to first document
-	tell theDoc
-		make new inbox task with properties {name:OFTask}
-	end tell
-end tell
