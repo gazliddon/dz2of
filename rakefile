@@ -35,13 +35,10 @@ def run_script text
 end
 
 
-
-
 # -----------------------------------------------------------------------------
 # Rakefile to make game
 SCRIPT_NAME = "Omnifocus Inbox"
 TEST_FILE = "test.jpg"
-
 
 # -----------------------------------------------------------------------------
 SCRIPT_DIR = "~/Library/Application Support/Dropzone/Destination Scripts"
@@ -64,40 +61,40 @@ end
 
 def run_script_error_reporting text
 	run_script text  do |output, err_no|
-		puts output
-
-		if err_no != 0
 			yield output, err_no if block_given?
+		if err_no != 0
 			assert { err_no == 0 }
 		end
 	end
 end
 
-task :test  do
-	puts "\n\n\n\n\n*** TESTING ***\n"
-
+task :install => :dirs do
 	# ruby syntax check
 	run_script_error_reporting "ruby -c \"#{script_src}\""
-
 	# cp file to destination dir
 	run_script_error_reporting "cp \"#{script_src}\" \"#{script_dest}\""
 
-	test_file_full_path = File.expand_path TEST_FILE
+	puts "Installed"
+end
 
+task :test  => :install do
 	# change directory to test dir
 	start_dir = Dir.pwd
 	Dir.chdir script_test_dir
 
 	# Run the tests
-	puts "Starting click test"
-	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_src}\" clicked"
-	puts "succeeded"
+	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_src}\" clicked" do |output, err_no|
+		puts output
+	end
+	puts "Click text completed"
 
-	puts ""
+	puts
 
-	puts "Starting drag test with #{full_test_file}"
-	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_src}\" dragged #{full_test_file}"
-	puts "succeeded"
+
+	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_src}\" dragged #{full_test_file}" do |output, err_no|
+		puts output
+	end
+	puts "Drag test completed with #{full_test_file}"
 
 	puts
 
