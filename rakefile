@@ -60,6 +60,7 @@ task :dirs => all_dst_dirs.each {|d| directory(d); Rake::Task[d]} do
 end
 
 def run_script_error_reporting text
+	pp text
 	run_script text  do |output, err_no|
 			yield output, err_no if block_given?
 		if err_no != 0
@@ -90,8 +91,7 @@ task :test  => :install do
 
 	puts
 
-
-	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_src}\" dragged #{full_test_file}" do |output, err_no|
+	run_script_error_reporting "GAZ_TESTING=1 DRAGGED_TYPE=NSStringPboardType ./runner.rb \"#{script_src}\" dragged \"Task\n1\n2\n3\"" do |output, err_no|
 		puts output
 	end
 	puts "Drag test completed with #{full_test_file}"

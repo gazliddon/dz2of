@@ -8,11 +8,11 @@
 # Creator: Gaz Liddon
 # URL: http://www.facebook.com/gazliddon
 # IconURL: https://dl.dropbox.com/u/3215822/omnifocus-icon.png
- 
- #-----------------------------------------------------------------------------
- # Support functions
 
- # Run a script and yield with procces return and process output
+#-----------------------------------------------------------------------------
+# Support functions
+
+# Run a script and yield with procces return and process output
 def run_script text
 	out = ""
 	ret = IO.popen('sh', 'r+') do |f|
@@ -43,19 +43,23 @@ def run_apple_script text
 end
 
 # Add a task to the OF inbox
-def add_task text
+def add_task name, note
 script = <<-eos
-set OFTask to \"#{text}\"
+
+set OFName to "#{name}"
+set OFNote to "#{note}"
 
 tell application "OmniFocus"
 	set theDoc to first document
 	tell theDoc
-		make new inbox task with properties {name:OFTask}
+		make new inbox task with properties {name:OFName, note:OFNote}
 	end tell
 end tell
+
   eos
 
-  run_apple_script(script)
+  run_apple_script script
+
 end
 
 # Find out if an app is installed or not
@@ -75,15 +79,22 @@ end try
 end
 
 def if_omnifocus_is_installed
+	finish = "All done"
+	$dz.determinate(false)
+
 	if is_insalled "com.omnigroup.OmniFocus"
-		yield if block_given?
+		
+		finish = yield if block_given?
+
 	else
 		$dz.error("Ruh Roh", "You do not have OmniFocus installed on this machine.")
-		$dz.finish("All done")
-		$dz.url(false)
 	end
 
+	$dz.finish("All done")
+	$dz.url(false)
+
 end
+
 
 #-----------------------------------------------------------------------------
 # Plugin
@@ -91,24 +102,47 @@ end
 def clicked
 
 	if_omnifocus_is_installed do
-		$dz.determinate(true)
+
 		unless ENV["GAZ_TESTING"]
 			run_apple_script "tell application \"Omnifocus\" to activate"
 		else
 			puts "*** Not running clicked *** "
 		end
-		$dz.finish("All done")
-		$dz.url(false)
+		
+		"All done"
 	end
 
 end
 
 def dragged
+
 	if_omnifocus_is_installed do
-		$dz.determinate(true)
-		add_task $items[0]
-		$dz.finish("Added Task")
-		$dz.url(false)
+
+		# Set up a text env
+
+		case ENV['DRAGGED_TYPE']
+			
+			when 'NSFilenamesPboardType'
+				name = $items[0]
+				note = $items.join "\n" if $items.size > 1
+			when 'NSStringPboardType'
+				# If multi line text make the first line the name
+				# and put all lines into notes
+
+				lines = $items[0].split("\n")
+
+				if lines.size > 1
+					name = lines[0]
+					note = $items[0]
+				else
+					name = $items[0]
+					note = ""
+				end
+		end
+
+		add_task name, note
+
+		"Added Task"
 	end
 
 end
