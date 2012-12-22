@@ -2,9 +2,6 @@ dz2of:
 	Todo list for the dropzone to omnifocus script. Having a quick try of Taskpaper to see if it suits me :)
 	
 	- Complete to v 0.1
-		- If text is multi line AND first line is not blank then set title to first line and notes to entire text
-		- Get icon stored on net permanently somewhere and put URI in header (my dropbox public) @done(2012-12-22)
-		- Need to error if OF isn't installed, how do I check? @question
 		- Submit version 0.1 into github, how do I do this @question
 
 	- Would Be Nice
@@ -16,18 +13,21 @@ dz2of:
 			- Can I include it in the directory?
 			- Or does it need to be available globally
 Done:
-	- Next Up  @done(2012-12-22)
-		- Is there anything I can do with click? @question @done(2012-12-22)
-		- Fill in header for plugin properly @done(2012-12-22)
-		- Add testing env variable for testing in rakefile @done(2012-12-22)
-		- Make it not run click code if testing @done(2012-12-22)
-		- Make click open OF inbox @done(2012-12-22)
-		- Get script working first at an abolsute path @done(2012-12-22)
-		- Include script for OF in the main file @done(2012-12-22)
-		- Turn script into a single command line - details here http://stackoverflow.com/questions/3440559/how-can-i-convert-a-complex-applescript-into-a-single-line-command-for-the-termi @done(2012-12-22)
-		- Execute it with osascript using system command @done(2012-12-22)
-			- system("osascript ../AppleScripts/mail.scpt #{email_file} >& /dev/null") @done(2012-12-22)
-		- Can I can differentiate between text that's come from a filename or from a file link?  @question @done(2012-12-22)
+	- If text is multi line AND first line is not blank then set title to first line and notes to entire text @done(2012-12-22)
+	- If files then put first file in task title and file URIs for all files into notes @done(2012-12-22)
+	- Get icon stored on net permanently somewhere and put URI in header (my dropbox public) @done(2012-12-22)
+	- Need to error if OF isn't installed, how do I check? @question @done(2012-12-22)
+	- Is there anything I can do with click? @question @done(2012-12-22)
+	- Fill in header for plugin properly @done(2012-12-22)
+	- Add testing env variable for testing in rakefile @done(2012-12-22)
+	- Make it not run click code if testing @done(2012-12-22)
+	- Make click open OF inbox @done(2012-12-22)
+	- Get script working first at an abolsute path @done(2012-12-22)
+	- Include script for OF in the main file @done(2012-12-22)
+	- Turn script into a single command line - details here http://stackoverflow.com/questions/3440559/how-can-i-convert-a-complex-applescript-into-a-single-line-command-for-the-termi @done(2012-12-22)
+	- Execute it with osascript using system command @done(2012-12-22)
+		- system("osascript ../AppleScripts/mail.scpt #{email_file} >& /dev/null") @done(2012-12-22)
+	- Can I can differentiate between text that's come from a filename or from a file link?  @question @done(2012-12-22)
 
 	- Remove dependancy on Omnifocus Gem @done(2012-12-22)
 		- Write Applescript to insert stuff into dropbox @done(2012-12-22)
@@ -46,21 +46,3 @@ Done:
 		- Create depositry @done(2012-12-21)
 		- Upload project to it @done(2012-12-21)
 		- Remove dropbox version @done(2012-12-21)
-
-Notes
------
-This is good for clicked, can just open up Omnifocus
-
-def clicked
-	# open the Disk Utility app in the Utilities folder
-	`osascript -e 'tell application "Disk Utility" to activate'`
-end
-
-set OFTask to the clipboard
-
-tell application "OmniFocus"
-	set theDoc to first document
-	tell theDoc
-		make new inbox task with properties {name:OFTask}
-	end tell
-end tell
