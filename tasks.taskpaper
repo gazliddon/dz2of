@@ -3,8 +3,12 @@ dz2of:
 	
 	- Complete to v 0.1
 		- Submit version 0.1 into github, how do I do this @question
+			- Fork it
+			- Add in my file
+			- push request
 
 	- Would Be Nice
+		- Truncate long task names
 		- Can I send rich text? @question
 		- Do a dialog that allows you set the default project you want stuff dropped to
 		- What can I do with key modifiers?
