@@ -1,52 +1,56 @@
 dz2of:
 	Todo list for the dropzone to omnifocus script. Having a quick try of Taskpaper to see if it suits me :)
-	
-	- Complete to v 0.1
 
+	- Todo
+		- Add user scripts as a submodule
+			- Change so the file being tested is the one in the submodule
+		- Fix bug where drag fails if Omnifocus isn't already running
+	
 	- Would Be Nice
+		- Have user scripts in this directory BUT linked to my for of the user scripts. How do I do that? @question
 		- Truncate long task names
 		- Can I send rich text? @question
 		- Do a dialog that allows you set the default project you want stuff dropped to
-		- What can I do with key modifiers?
+		- What can I do with key modifiers? @question
 			- Attach file?
-		- Make my own taskpaper theme
-			- Can I include it in the directory?
-			- Or does it need to be available globally
 Done:
-		- Submit version 0.1 into github, how do I do this @question @done(2012-12-22)
-			- Fork it @done(2012-12-22)
-			- Add in my file @done(2012-12-22)
-			- push request @done(2012-12-22)
-	- If text is multi line AND first line is not blank then set title to first line and notes to entire text @done(2012-12-22)
-	- If files then put first file in task title and file URIs for all files into notes @done(2012-12-22)
-	- Get icon stored on net permanently somewhere and put URI in header (my dropbox public) @done(2012-12-22)
-	- Need to error if OF isn't installed, how do I check? @question @done(2012-12-22)
-	- Is there anything I can do with click? @question @done(2012-12-22)
-	- Fill in header for plugin properly @done(2012-12-22)
-	- Add testing env variable for testing in rakefile @done(2012-12-22)
-	- Make it not run click code if testing @done(2012-12-22)
-	- Make click open OF inbox @done(2012-12-22)
-	- Get script working first at an abolsute path @done(2012-12-22)
-	- Include script for OF in the main file @done(2012-12-22)
-	- Turn script into a single command line - details here http://stackoverflow.com/questions/3440559/how-can-i-convert-a-complex-applescript-into-a-single-line-command-for-the-termi @done(2012-12-22)
-	- Execute it with osascript using system command @done(2012-12-22)
-		- system("osascript ../AppleScripts/mail.scpt #{email_file} >& /dev/null") @done(2012-12-22)
-	- Can I can differentiate between text that's come from a filename or from a file link?  @question @done(2012-12-22)
 
-	- Remove dependancy on Omnifocus Gem @done(2012-12-22)
+
+
+Archive:
+	- Test under 1.8.7 @done(2012-12-30) @project(dz2of)
+	- Complete to v 0.1 @done(2012-12-22) @project(Done)
+	- Submit version 0.1 into github, how do I do this @question @done(2012-12-22) @project(Done)
+		- Fork it @done(2012-12-22)
+		- Add in my file @done(2012-12-22)
+		- push request @done(2012-12-22)
+	- If text is multi line AND first line is not blank then set title to first line and notes to entire text @done(2012-12-22) @project(Done)
+	- If files then put first file in task title and file URIs for all files into notes @done(2012-12-22) @project(Done)
+	- Get icon stored on net permanently somewhere and put URI in header (my dropbox public) @done(2012-12-22) @project(Done)
+	- Need to error if OF isn't installed, how do I check? @question @done(2012-12-22) @project(Done)
+	- Is there anything I can do with click? @question @done(2012-12-22) @project(Done)
+	- Fill in header for plugin properly @done(2012-12-22) @project(Done)
+	- Add testing env variable for testing in rakefile @done(2012-12-22) @project(Done)
+	- Make it not run click code if testing @done(2012-12-22) @project(Done)
+	- Make click open OF inbox @done(2012-12-22) @project(Done)
+	- Get script working first at an abolsute path @done(2012-12-22) @project(Done)
+	- Include script for OF in the main file @done(2012-12-22) @project(Done)
+	- Turn script into a single command line - details here http://stackoverflow.com/questions/3440559/how-can-i-convert-a-complex-applescript-into-a-single-line-command-for-the-termi @done(2012-12-22) @project(Done)
+	- Execute it with osascript using system command @done(2012-12-22) @project(Done)
+		- system("osascript ../AppleScripts/mail.scpt #{email_file} >& /dev/null") @done(2012-12-22)
+	- Can I can differentiate between text that's come from a filename or from a file link?  @question @done(2012-12-22) @project(Done)
+	- Remove dependancy on Omnifocus Gem @done(2012-12-22) @project(Done)
 		- Write Applescript to insert stuff into dropbox @done(2012-12-22)
 		- How do I include this for dropbox? @question  @done(2012-12-22)
 			- Would it be text in .dropbox file and then copied into AppleScripts dir? @done(2012-12-22)
 			- Not sure at all how multiple files are packaged for inclusion in dropbox @done(2012-12-22)
 			- Have a look at the 3rd party plugins for guidance @done(2012-12-22)
-
-	- Test @done(2012-12-21)
+	- Test @done(2012-12-21) @project(Done)
 		- Get run script working and reporting back errors @done(2012-12-21)
 		- Exit and report errors @done(2012-12-21)
 		- Get test running from within sublime @done(2012-12-21)
 		- Actually test in DropZone @done(2012-12-21)
-
-	- Add to github @done(2012-12-21)
+	- Add to github @done(2012-12-21) @project(Done)
 		- Create depositry @done(2012-12-21)
 		- Upload project to it @done(2012-12-21)
 		- Remove dropbox version @done(2012-12-21)
