@@ -47,8 +47,10 @@ full_script_dir = File.expand_path SCRIPT_DIR
 script_test_dir = "#{full_script_dir}/lib"
 full_test_file = File.expand_path TEST_FILE
 
-script_dest = "#{full_script_dir}/#{SCRIPT_NAME}.dropzone"
-script_src = "#{SCRIPT_NAME}.dropzone"
+script_base = "#{SCRIPT_NAME}.dropzone"
+
+script_dest = "#{full_script_dir}/#{script_base}"
+script_src = "dropzone-user-scripts/#{script_base}"
 dest_files = [script_dest]
 all_dst_dirs = get_dirs dest_files
 
@@ -84,17 +86,18 @@ task :test  => :install do
 	Dir.chdir script_test_dir
 
 	# Run the tests
-	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_src}\" clicked" do |output, err_no|
+	run_script_error_reporting "GAZ_TESTING=1 ./runner.rb \"#{script_base}\" clicked" do |output, err_no|
 		puts output
 	end
 	puts "Click text completed"
 
 	puts
 
-	run_script_error_reporting "GAZ_TESTING=1 DRAGGED_TYPE=NSStringPboardType ./runner.rb \"#{script_src}\" dragged \"Task\n1\n2\n3\"" do |output, err_no|
+	run_script_error_reporting "GAZ_TESTING=1 DRAGGED_TYPE=NSStringPboardType ./runner.rb \"#{script_base}\" dragged \"Task\n1\n2\n3\"" do |output, err_no|
 		puts output
 	end
-	puts "Drag test completed with #{full_test_file}"
+
+	puts "Drag test completed"
 
 	puts
 
