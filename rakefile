@@ -50,7 +50,7 @@ full_test_file = File.expand_path TEST_FILE
 script_base = "#{SCRIPT_NAME}.dropzone"
 
 script_dest = "#{full_script_dir}/#{script_base}"
-script_src = "dropzone-user-scripts/#{script_base}"
+script_src = "#{script_base}"
 dest_files = [script_dest]
 all_dst_dirs = get_dirs dest_files
 
@@ -62,7 +62,6 @@ task :dirs => all_dst_dirs.each {|d| directory(d); Rake::Task[d]} do
 end
 
 def run_script_error_reporting text
-	pp text
 	run_script text  do |output, err_no|
 			yield output, err_no if block_given?
 		if err_no != 0
