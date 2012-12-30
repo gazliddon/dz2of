@@ -1,0 +1,3 @@
+[submodule "dropzone-user-scripts"]
+	path = dropzone-user-scripts
+	url = git@github.com:gazliddon/dropzone-user-scripts.git
